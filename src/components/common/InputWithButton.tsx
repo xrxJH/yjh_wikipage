@@ -9,9 +9,9 @@ type Props = {
 
 export function InputWithButton({ placeholder, buttonText, onClick }: Props) {
   return (
-    <div className="flex w-full  items-center space-x-3">
+    <div className="flex items-center w-full space-x-3">
       <Input type="text" placeholder={placeholder} className="w-full h-14" />
-      <Button type="button" variant="secondary" onClick={onClick} className=" w-1/6 h-14">
+      <Button type="button" variant="secondary" onClick={onClick} className="w-1/6 h-14">
         {buttonText}
       </Button>
     </div>

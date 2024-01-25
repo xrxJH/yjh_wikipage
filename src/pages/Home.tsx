@@ -25,8 +25,8 @@ export const Home = () => {
   };
 
   return (
-    <div className="w-full h-full border flex flex-col gap-9 border-green-600 rounded">
-      <div className="w-full flex flex-col gap-1">
+    <div className="flex flex-col w-full h-full border border-green-400 gap-9">
+      <div className="flex flex-col w-full gap-1">
         <h2 className="text-xl font-medium">코딩허브 위키</h2>
         <p>강의와 관련된 정보를 자유롭게 나누어요</p>
       </div>
@@ -38,15 +38,15 @@ export const Home = () => {
         />
       </div>
 
-      <div className="w-full flex flex-col flex-grow gap-3">
-        <div className="w-full flex justify-end ">
-          <Button onClick={handleNavigateToNew} className=" w-36 flex">
+      <div className="flex flex-col flex-grow w-full gap-3 ">
+        <div className="flex justify-end w-full ">
+          <Button onClick={handleNavigateToNew} className="flex w-36">
             추가하기
           </Button>
         </div>
 
-        <div className="w-full flex flex-col flex-1 justify-between  border border-red-600">
-          <ul className="w-full  border border-red-600 flex flex-col  flex-grow   gap-3">
+        <div className="flex flex-col justify-between flex-grow w-full ">
+          <ul className="flex flex-col flex-grow w-full h-full gap-3 border border-red-600">
             {MOCK_DATA.map((data, index) => (
               <li
                 key={data.id}
@@ -55,12 +55,12 @@ export const Home = () => {
                 }}
                 className="cursor-pointer"
               >
-                <Card className="flex w-full items-center p-3 gap-7 text-sm ">
-                  <p className=" flex-grow  border  border-red-200 text-ellipsis overflow-hidden">
+                <Card className="flex items-center w-full p-3 text-sm gap-7 ">
+                  <p className="flex-grow overflow-hidden border border-red-200 text-ellipsis">
                     {data.title + index}
                   </p>
-                  <p className=" border border-red-200">2024.01.11</p>
-                  <p className=" border border-red-200 whitespace-nowrap">
+                  <p className="border border-red-200 ">2024.01.11</p>
+                  <p className="border border-red-200 whitespace-nowrap">
                     {data.author.name}
                   </p>
                 </Card>
@@ -68,17 +68,17 @@ export const Home = () => {
             ))}
 
             {/* <li className="cursor-pointer">
-              <Card className="flex  flex-grow  items-center w-full p-3  gap-7 text-sm ">
-                <p className=" flex-grow border border-red-200">제목</p>
-                <p className=" border border-red-200">2024.01.11</p>
-                <p className=" border border-red-200">허비</p>
+              <Card className="flex items-center flex-grow w-full p-3 text-sm gap-7 ">
+                <p className="flex-grow border border-red-200 ">제목</p>
+                <p className="border border-red-200 ">2024.01.11</p>
+                <p className="border border-red-200 ">허비</p>
               </Card>
             </li>
             <li className="cursor-pointer">
-              <Card className="flex  flex-grow  items-center w-full p-3  gap-7 text-sm ">
-                <p className=" flex-grow border border-red-200">제목</p>
-                <p className=" border border-red-200">2024.01.11</p>
-                <p className=" border border-red-200">허비</p>
+              <Card className="flex items-center flex-grow w-full p-3 text-sm gap-7 ">
+                <p className="flex-grow border border-red-200 ">제목</p>
+                <p className="border border-red-200 ">2024.01.11</p>
+                <p className="border border-red-200 ">허비</p>
               </Card>
             </li> */}
           </ul>
