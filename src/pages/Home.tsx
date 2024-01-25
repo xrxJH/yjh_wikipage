@@ -1,12 +1,6 @@
+import { InputWithButton } from '@/components/common/InputWithButton';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import {
   Pagination,
   PaginationContent,
@@ -17,7 +11,6 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { PATH } from '@/constants/path';
-import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 import { useNavigate } from 'react-router-dom';
 
 export const Home = () => {
@@ -27,46 +20,67 @@ export const Home = () => {
     navigate(PATH.NEW);
   };
 
+  const handleNavigateToDetail = (id: string) => {
+    navigate(PATH.WIKI_DETAIL + '/' + id);
+  };
+
   return (
-    <div className="w-dvw h-dvh border border-red-600 flex flex-col justify-center items-center gap-7 p-4">
-      <div className=" w-full flex flex-row justify-between items-center">
-        <h1 className="text-4xl font-bold  cursor-pointer">WIKI</h1>
-        <Avatar className=" w-10 h-10 cursor-pointer">
-          <AvatarImage className=" rounded-full" src="https://github.com/shadcn.png" />
-          <AvatarFallback className=" rounded-full">CN</AvatarFallback>
-        </Avatar>
+    <div className="w-full h-full border flex flex-col gap-9 border-green-600 rounded">
+      <div className="w-full flex flex-col gap-1">
+        <h2 className="text-xl font-medium">코딩허브 위키</h2>
+        <p>강의와 관련된 정보를 자유롭게 나누어요</p>
       </div>
-      <div className="w-full h-full border flex flex-col gap-6 border-green-600 rounded">
-        <div className="flex flex-row justify-between items-center w-full">
-          <p className="text-xl font-medium">코딩허브 위키</p>
-          <Button onClick={handleNavigateToNew}>추가하기</Button>
+      <div className="w-full">
+        <InputWithButton
+          placeholder="궁금한 게시글을 검색해보세요!"
+          buttonText="검색"
+          onClick={() => {}}
+        />
+      </div>
+
+      <div className="w-full flex flex-col flex-grow gap-3">
+        <div className="w-full flex justify-end ">
+          <Button onClick={handleNavigateToNew} className=" w-36 flex">
+            추가하기
+          </Button>
         </div>
+
         <div className="w-full flex flex-col flex-1 justify-between  border border-red-600">
-          <ul className="w-full  border border-red-600 flex flex-col gap-3">
-            <li className="cursor-pointer">
-              <Card className="flex items-center w-full p-3 flex gap-7 text-sm ">
-                <p className=" border border-red-200 ">1</p>
+          <ul className="w-full  border border-red-600 flex flex-col  flex-grow   gap-3">
+            {MOCK_DATA.map((data, index) => (
+              <li
+                key={data.id}
+                onClick={() => {
+                  handleNavigateToDetail(data.id);
+                }}
+                className="cursor-pointer"
+              >
+                <Card className="flex w-full items-center p-3 gap-7 text-sm ">
+                  <p className=" flex-grow  border  border-red-200 text-ellipsis overflow-hidden">
+                    {data.title + index}
+                  </p>
+                  <p className=" border border-red-200">2024.01.11</p>
+                  <p className=" border border-red-200 whitespace-nowrap">
+                    {data.author.name}
+                  </p>
+                </Card>
+              </li>
+            ))}
+
+            {/* <li className="cursor-pointer">
+              <Card className="flex  flex-grow  items-center w-full p-3  gap-7 text-sm ">
                 <p className=" flex-grow border border-red-200">제목</p>
                 <p className=" border border-red-200">2024.01.11</p>
                 <p className=" border border-red-200">허비</p>
               </Card>
             </li>
             <li className="cursor-pointer">
-              <Card className="flex items-center w-full p-3 flex gap-7 text-sm ">
-                <p className=" border border-red-200 ">1</p>
+              <Card className="flex  flex-grow  items-center w-full p-3  gap-7 text-sm ">
                 <p className=" flex-grow border border-red-200">제목</p>
                 <p className=" border border-red-200">2024.01.11</p>
                 <p className=" border border-red-200">허비</p>
               </Card>
-            </li>
-            <li className="cursor-pointer">
-              <Card className="flex items-center w-full p-3 flex gap-7 text-sm ">
-                <p className=" border border-red-200 ">1</p>
-                <p className=" flex-grow border border-red-200">제목</p>
-                <p className=" border border-red-200">2024.01.11</p>
-                <p className=" border border-red-200">허비</p>
-              </Card>
-            </li>
+            </li> */}
           </ul>
           <Pagination>
             <PaginationContent>
@@ -89,3 +103,57 @@ export const Home = () => {
     </div>
   );
 };
+
+const MOCK_DATA = [
+  {
+    id: crypto.randomUUID(),
+    title: '제목',
+    date: '2021.01.01',
+    description: '설명',
+    author: {
+      id: crypto.randomUUID(),
+      name: '코비1',
+    },
+  },
+  {
+    id: crypto.randomUUID(),
+    title: '제목',
+    date: '2021.01.01',
+    description: '설명',
+    author: {
+      id: crypto.randomUUID(),
+      name: '코비1',
+    },
+  },
+
+  {
+    id: crypto.randomUUID(),
+    title: '제목',
+    date: '2021.01.01',
+    description: '설명',
+    author: {
+      id: crypto.randomUUID(),
+      name: '코비2',
+    },
+  },
+  {
+    id: crypto.randomUUID(),
+    title: '제목',
+    date: '2021.01.01',
+    description: '설명',
+    author: {
+      id: crypto.randomUUID(),
+      name: '코비3',
+    },
+  },
+  {
+    id: crypto.randomUUID(),
+    title: '제목',
+    date: '2021.01.01',
+    description: '설명',
+    author: {
+      id: crypto.randomUUID(),
+      name: '코비4',
+    },
+  },
+];
