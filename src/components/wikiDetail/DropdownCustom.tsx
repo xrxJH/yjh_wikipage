@@ -25,8 +25,8 @@ export const DropdownCustom = () => {
           <DropdownMenuTrigger asChild>
             <Button variant="ghost">• • •</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-fit bg-white ">
-            <Card className="p-2 flex flex-col gap-2">
+          <DropdownMenuContent className="bg-white w-fit ">
+            <Card className="flex flex-col gap-2 p-2">
               {isAuthor && (
                 <>
                   <DropdownMenuItem onClick={handleNavigateToEdit}>
