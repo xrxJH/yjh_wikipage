@@ -3,7 +3,7 @@ import { z } from 'zod';
 export type WikiSchemaType = z.infer<typeof FormSchema>;
 
 export const FormSchema = z.object({
-  body: z
+  description: z
     .string()
     .min(10, {
       message: '본문은 10자 이상 작성해주세요.',

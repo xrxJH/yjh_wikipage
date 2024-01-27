@@ -6,16 +6,24 @@ import {
 } from '@radix-ui/react-dropdown-menu';
 import { Button } from '../ui/button';
 import { Card } from '../ui/card';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { PATH } from '@/constants/path';
+import { useDeleteWiki } from '@/service/queries/wiki';
 
 export const DropdownCustom = () => {
   const isLogin = true;
   const isAuthor = true;
   const navigate = useNavigate();
 
+  const { id } = useParams() as { id: string };
+  const { mutate: deleteMutate } = useDeleteWiki(id);
+
   const handleNavigateToEdit = () => {
-    navigate(PATH.EDIT);
+    navigate(PATH.EDIT + '/' + id);
+  };
+
+  const handleDelete = () => {
+    deleteMutate();
   };
 
   return (
@@ -35,7 +43,11 @@ export const DropdownCustom = () => {
                     </Button>
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={handleNavigateToEdit}>
-                    <Button variant="destructive" className="w-full">
+                    <Button
+                      variant="destructive"
+                      className="w-full"
+                      onClick={handleDelete}
+                    >
                       삭제하기
                     </Button>
                   </DropdownMenuItem>
