@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import {
   Form,
   FormControl,
@@ -12,28 +12,56 @@ import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/components/ui/use-toast';
 import { useWikiForm } from '@/hooks/useWikiForm/useWikiForm';
 import { WikiSchemaType } from '@/hooks/useWikiForm/wikiFormSchema';
+import { useGetWikiDetail, useWikiEditor } from '@/service/queries/wiki';
 
 export const NewAndEdit = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { id } = useParams() as { id: string };
+  const { data } = useGetWikiDetail(id);
+  const { mutate: wikiMutate } = useWikiEditor(id);
+
   const isEditUrl = location.pathname.includes('/wiki/edit');
-  const hasData = isEditUrl;
+  // const hasData = isEditUrl;
   const handleCancel = () => {
     navigate(-1);
   };
-  const data = hasData ? { title: '기존 제목', body: '기존 내용' } : undefined;
+  // const data = hasData ? { title: '기존 제목', body: '기존 내용' } : undefined;
   const form = useWikiForm(data);
 
-  const onSubmit = (data: WikiSchemaType) => {
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
+  const onSubmit = (value: WikiSchemaType) => {
+    const body = {
+      title: value.title,
+      description: value.description,
+      date: new Date().toISOString(),
+      author: {
+        id: crypto.randomUUID(),
+        name: '코비' + crypto.getRandomValues(new Uint8Array(1))[0],
+      },
+    };
+
+    wikiMutate(body, {
+      onSuccess: () => {
+        toast({
+          title: 'You submitted the following values:',
+          description: (
+            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+              <code className="text-white">{JSON.stringify(value, null, 2)}</code>
+            </pre>
+          ),
+        });
+      },
+      onError: (error) => {
+        toast({
+          title: 'You submitted, but error occured:',
+          description: (
+            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+              <code className="text-white">{JSON.stringify(error, null, 2)}</code>
+            </pre>
+          ),
+        });
+      },
     });
-    // 글 추가 로직
   };
 
   return (
@@ -58,7 +86,7 @@ export const NewAndEdit = () => {
           />
           <FormField
             control={form.control}
-            name="body"
+            name="description"
             render={({ field }) => (
               <FormItem className="flex flex-col justify-end flex-grow h-full ">
                 <FormControl className="flex flex-col flex-grow ">

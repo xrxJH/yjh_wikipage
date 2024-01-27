@@ -1,20 +1,32 @@
 import { InputWithButton } from '@/components/common/InputWithButton';
+import { PageNavigator } from '@/components/common/PageNavigator';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from '@/components/ui/pagination';
+
 import { PATH } from '@/constants/path';
+import { useGetAllwikis } from '@/service/queries/wiki';
+import { formatTime } from '@/utils/formatTimeStamp';
+import { useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 
 export const Home = () => {
+  const [page, setPage] = useState(1);
+
   const navigate = useNavigate();
+  const { data: wikis, isPlaceholderData, totalCount } = useGetAllwikis(page);
+
+  console.log(
+    isPlaceholderData,
+    'isPlaceholderData',
+    wikis,
+    'data',
+    totalCount,
+    'totalCount',
+    page,
+    'page',
+    '홈 데이터`'
+  );
 
   const handleNavigateToNew = () => {
     navigate(PATH.NEW);
@@ -25,7 +37,7 @@ export const Home = () => {
   };
 
   return (
-    <div className="flex flex-col w-full h-full border border-green-400 gap-9">
+    <div className="flex flex-col w-full h-full gap-9">
       <div className="flex flex-col w-full gap-1">
         <h2 className="text-xl font-medium">코딩허브 위키</h2>
         <p>강의와 관련된 정보를 자유롭게 나누어요</p>
@@ -46,114 +58,30 @@ export const Home = () => {
         </div>
 
         <div className="flex flex-col justify-between flex-grow w-full ">
-          <ul className="flex flex-col flex-grow w-full h-full gap-3 border border-red-600">
-            {MOCK_DATA.map((data, index) => (
+          <ul className="grid w-full h-full grid-rows-5 gap-3 ">
+            {wikis?.map((wiki: Wiki) => (
               <li
-                key={data.id}
+                key={wiki.id}
                 onClick={() => {
-                  handleNavigateToDetail(data.id);
+                  handleNavigateToDetail(wiki.id);
                 }}
-                className="cursor-pointer"
+                className="flex-grow cursor-pointer "
               >
-                <Card className="flex items-center w-full p-3 text-sm gap-7 ">
-                  <p className="flex-grow overflow-hidden border border-red-200 text-ellipsis">
-                    {data.title + index}
-                  </p>
-                  <p className="border border-red-200 ">2024.01.11</p>
-                  <p className="border border-red-200 whitespace-nowrap">
-                    {data.author.name}
-                  </p>
+                <Card className="flex items-center w-full h-full p-3 text-sm gap-7 ">
+                  <p className="flex-grow overflow-hidden text-ellipsis">{wiki.title}</p>
+                  <p className="">{formatTime(wiki.date)}</p>
+                  <p className=" whitespace-nowrap">{wiki.author.name}</p>
                 </Card>
               </li>
             ))}
-
-            {/* <li className="cursor-pointer">
-              <Card className="flex items-center flex-grow w-full p-3 text-sm gap-7 ">
-                <p className="flex-grow border border-red-200 ">제목</p>
-                <p className="border border-red-200 ">2024.01.11</p>
-                <p className="border border-red-200 ">허비</p>
-              </Card>
-            </li>
-            <li className="cursor-pointer">
-              <Card className="flex items-center flex-grow w-full p-3 text-sm gap-7 ">
-                <p className="flex-grow border border-red-200 ">제목</p>
-                <p className="border border-red-200 ">2024.01.11</p>
-                <p className="border border-red-200 ">허비</p>
-              </Card>
-            </li> */}
           </ul>
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious href="#" />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">1</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationNext href="#" />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
+          <PageNavigator
+            onPageChange={(page) => setPage(page)}
+            currentPageNumber={page}
+            totalCount={totalCount}
+          />
         </div>
       </div>
     </div>
   );
 };
-
-const MOCK_DATA = [
-  {
-    id: crypto.randomUUID(),
-    title: '제목',
-    date: '2021.01.01',
-    description: '설명',
-    author: {
-      id: crypto.randomUUID(),
-      name: '코비1',
-    },
-  },
-  {
-    id: crypto.randomUUID(),
-    title: '제목',
-    date: '2021.01.01',
-    description: '설명',
-    author: {
-      id: crypto.randomUUID(),
-      name: '코비1',
-    },
-  },
-
-  {
-    id: crypto.randomUUID(),
-    title: '제목',
-    date: '2021.01.01',
-    description: '설명',
-    author: {
-      id: crypto.randomUUID(),
-      name: '코비2',
-    },
-  },
-  {
-    id: crypto.randomUUID(),
-    title: '제목',
-    date: '2021.01.01',
-    description: '설명',
-    author: {
-      id: crypto.randomUUID(),
-      name: '코비3',
-    },
-  },
-  {
-    id: crypto.randomUUID(),
-    title: '제목',
-    date: '2021.01.01',
-    description: '설명',
-    author: {
-      id: crypto.randomUUID(),
-      name: '코비4',
-    },
-  },
-];

@@ -8,9 +8,15 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
+import { useGetWikiDetail } from '@/service/queries/wiki';
+import { useParams } from 'react-router-dom';
+import { formatTime } from '@/utils/formatTimeStamp';
 
 export const WikiDetail = () => {
   const isUpdated = true;
+  const { id } = useParams() as { id: string };
+  const { data } = useGetWikiDetail(id);
+  console.log(data);
 
   return (
     <div className="flex flex-col justify-between w-full h-full gap-3">
@@ -19,12 +25,12 @@ export const WikiDetail = () => {
           <div className="w-full ">
             <div className="flex justify-between w-full">
               <CardTitle className="flex-grow text-2xl break-words break-all ">
-                Card Title
+                {data?.title}
               </CardTitle>
               <DropdownCustom />
             </div>
             <CardDescription className="break-words break-all ">
-              {'2023.1.20'} 작성 {isUpdated && '• 수정됨'}
+              {formatTime(data?.date)} 작성 {isUpdated && '• 수정됨'}
             </CardDescription>
           </div>
 
@@ -38,87 +44,16 @@ export const WikiDetail = () => {
                 <AvatarFallback className="rounded-full ">CN</AvatarFallback>
               </Avatar>
               <div className="flex items-center gap-3">
-                <p className="font-semibold">게시글작성자</p>
+                <p className="font-semibold">{data?.author.name}</p>
               </div>
             </div>
           </div>
         </CardHeader>
       </Card>
 
-      <div className="flex flex-grow h-4/6 max-h-900">
-        <Card className="flex flex-col p-5 overflow-auto">
-          <p className="break-words break-all">
-            Card Content Card ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContententCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContententCard
-            ContentCardContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContententCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContententCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContententCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard Content Card Content Card ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContententCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContententCard ContentCardContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContententCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContententCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContententCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            ContentCard ContentCard ContentCard ContentCard ContentCard ContentCard
-            Content
-          </p>
+      <div className="flex flex-grow w-full h-4/6 max-h-900">
+        <Card className="flex flex-col w-full p-5 overflow-auto">
+          <p className="break-words break-all">{data?.description}</p>
         </Card>
       </div>
 
@@ -148,24 +83,6 @@ export const WikiDetail = () => {
                       <p className="border border-red-200 ">2024.01.11</p>
                     </div>
                     <p className="break-words break-all border border-red-200 ">
-                      ContentCard ContentCard ContententCard ContentCard ContentCard
-                      ContentCard ContentCard ContentCard ContentCard ContentCard
-                      ContentCard ContentCard ContentCard ContentCard ContentCard
-                      ContentCard ContentCard ContentCard ContentCard ContentCard
-                      ContentCard ContentCard ContentCard ContentCard ContentCard
-                      ContentCard ContentCard ContentCard ContentCard ContentCard
-                      ContentCard ContentCard ContentCard ContentCard ContentCard
-                      ContentCard ContentCard ContentCard ContentCard ContentCard
-                      ContentCard ContentCard ContentCard ContentCard ContentCard
-                      ContentCard ContentCard ContentCard ContentCard ContentCard
-                      ContentCard ContentCard ContentCard ContentCard ContentCard
-                      ContentCard ContentCard ContentCard ContentCard ContentCard
-                      ContentCard ContentCard ContentCard ContentCard ContentCard
-                      ContentCard ContentCard ContentCard ContentCard ContentCard
-                      ContentCard ContentCard ContentCard ContentCard ContentCard
-                      ContentCard ContentCard ContentCard ContentCard ContentCard
-                      ContentCard ContentCard ContentCard ContentCard ContentCard
-                      ContentCard ContentCard ContentCard ContentCard ContentCard
                       ContentCard ContentCard ContentCard ContentCard
                     </p>
                   </div>

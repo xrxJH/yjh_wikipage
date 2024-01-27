@@ -9,7 +9,7 @@ export const Layout = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start p-4 overflow-x-hidden border border-red-600 w-dvw h-dvh gap-7">
+    <div className="flex flex-col items-center justify-start p-4 overflow-x-hidden w-dvw h-dvh gap-7">
       <div className="flex flex-row items-center justify-between w-full ">
         <h1 onClick={handleNavigateToHome} className="text-4xl font-bold cursor-pointer">
           WIKI
