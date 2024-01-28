@@ -7,6 +7,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '../ui/pagination';
+import { useEffect } from 'react';
 
 type Props = {
   currentPageNumber: number;
@@ -18,6 +19,13 @@ export const PageNavigator = ({ currentPageNumber, totalCount }: Props) => {
 
   const WIKIS_PER_PAGE = 5;
   const length = Math.ceil(totalCount / WIKIS_PER_PAGE);
+
+  // console.log(length, 'length');
+  // console.log(totalCount, 'totalCount');
+
+  // useEffect(() => {
+  //   sessionStorage.setItem('currentWikiPage', currentPageNumber.toString());
+  // }, [currentPageNumber]);
 
   const handlePreviousPage = () => {
     if (currentPageNumber > 1) {

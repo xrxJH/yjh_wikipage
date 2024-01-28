@@ -18,3 +18,5 @@ interface NewWikiBody {
     name: string;
   };
 }
+
+type WikiTitles = Pick<Wiki, 'id' | 'title'>;
