@@ -1,7 +1,6 @@
 import { QUERY_KEY } from '@/constants/queryKey';
 import {
   keepPreviousData,
-  useInfiniteQuery,
   useMutation,
   useQuery,
   useQueryClient,
@@ -9,6 +8,7 @@ import {
 import {
   deleteWiki,
   getAllWikis,
+  getPaginatedWikis,
   getWikiDetail,
   postWiki,
   putWiki,
@@ -18,15 +18,14 @@ import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import { AxiosError } from 'axios';
 
-export const useGetAllwikis = (page: number) => {
+export const useGetPaginatedWikis = (page: number) => {
   const [totalItemCount, setTotalItemCount] = useState(0);
+
   const query = useQuery({
-    queryKey: [QUERY_KEY.allWiki, page],
+    queryKey: [QUERY_KEY.paginatedWiki, page],
     queryFn: async () => {
-      const result = await getAllWikis(page);
-      if (page === 1) {
-        setTotalItemCount(result.totalCount);
-      }
+      const result = await getPaginatedWikis(page);
+      setTotalItemCount(result.totalCount);
       return result.data;
     },
     placeholderData: keepPreviousData,
@@ -36,6 +35,18 @@ export const useGetAllwikis = (page: number) => {
     ...query,
     totalCount: totalItemCount,
   };
+};
+
+export const useGetAllwikis = () => {
+  return useQuery({
+    queryKey: [QUERY_KEY.allWiki],
+    queryFn: getAllWikis,
+    select: (data) =>
+      data.map((wiki: WikiTitles) => ({
+        id: wiki.id,
+        title: wiki.title,
+      })),
+  });
 };
 
 export const useGetWikiDetail = (id: string) => {

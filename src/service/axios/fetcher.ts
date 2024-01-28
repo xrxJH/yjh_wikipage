@@ -1,6 +1,5 @@
+import { BASE_API_URL } from '@/constants/path';
 import axios from 'axios';
-
-const BASE_API_URL = 'http://localhost:3001';
 
 export const publicApi = axios.create({
   baseURL: BASE_API_URL,

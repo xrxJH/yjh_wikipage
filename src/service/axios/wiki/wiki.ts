@@ -1,7 +1,7 @@
 import { END_POINT } from '@/constants/endpoint';
 import { publicApi } from '../fetcher';
 
-export const getAllWikis = async (page = 1, size = 5) => {
+export const getPaginatedWikis = async (page = 1, size = 5) => {
   const response = await publicApi.get(END_POINT.allWiki, {
     params: { _page: page, _limit: size, _sort: 'date', _order: 'desc' },
   });
@@ -12,6 +12,11 @@ export const getAllWikis = async (page = 1, size = 5) => {
     data: response.data,
     totalCount,
   };
+};
+
+export const getAllWikis = async () => {
+  const { data } = await publicApi.get(END_POINT.allWiki);
+  return data;
 };
 
 export const getWikiDetail = async (id: string) => {

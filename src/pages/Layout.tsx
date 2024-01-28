@@ -1,11 +1,14 @@
 import { PATH } from '@/constants/path';
+import { useWikiPageStore } from '@/zustand/wiki';
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 export const Layout = () => {
+  const { selectPage } = useWikiPageStore();
   const navigate = useNavigate();
   const handleNavigateToHome = () => {
     navigate(PATH.HOME);
+    selectPage(1);
   };
 
   return (
