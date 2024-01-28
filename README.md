@@ -14,6 +14,7 @@ npm run dev
 - [필수요구사항](#필수요구사항)
 
 [트러블슈팅](#트러블슈팅)  
+[고민한점](#고민한점)
 [폴더구조](#폴더구조)
 
 ## 데모
@@ -27,7 +28,7 @@ https://github.com/xrxJH/yjh_wikipage/assets/157004345/688458eb-a2e5-4d48-bbb7-4
 
 ### 필수요구사항
 
-#### 라우트
+#### [라우트](https://github.com/xrxJH/yjh_wikipage/blob/main/src/routes/router.tsx)
 
 - 메인('/'), 상세('/wiki/detail/:id'), 글쓰기('/wiki/new')&수정 페이지('/wiki/edit')로 나누었습니다
   - 레이아웃의 Logo 클릭시 메인페이지로 이동
@@ -53,7 +54,9 @@ https://github.com/xrxJH/yjh_wikipage/assets/157004345/688458eb-a2e5-4d48-bbb7-4
 
 #### 유효성 검사 로직 분리
 
-- react-hook-form과 zod를 이용하여 유효성검사 로직을 분리했습니다.
+- react-hook-form과 zod를 이용하여 유효성검사 로직을 분리했습니다.    
+[form훅](https://github.com/xrxJH/yjh_wikipage/blob/main/src/hooks/useWikiForm/useWikiForm.ts)
+[유효성 검증](https://github.com/xrxJH/yjh_wikipage/blob/main/src/hooks/useWikiForm/wikiFormSchema.ts)
 
 #### 본문에 다른 게시글 제목 링크 걸기
 
@@ -79,6 +82,13 @@ https://github.com/xrxJH/yjh_wikipage/assets/157004345/688458eb-a2e5-4d48-bbb7-4
     - compound pattern으로 디자인되어 배치 및 조작이 편리
     - Tailwind를 통한 간편한 커스텀
 
+## 고민한점
+- 실제 서비스 요구사항으로는 데이터 페칭이 이루어질 것이므로 json server를 이용하여 간단히 api 페치 환경을 구축했습니다.
+- 컴포넌트 분리시 api호출과 컴포넌트가 가까이 위치하도록 분리했습니다.
+- zustand를 통해 페이지네이션의 상태를 관리하고 있으나 새로고침시에는 게시글 페이지가 1이 되는 문제가 있습니다.   
+    - 기능 기획의도에 따라 개선시킬수도, 유지할 수도 있는 현상이지만      
+      만약 개선한다면 sessionStorage에 현재 페이지를 저장하고 sessionStorage의 상태를 recoil의 atom effect를 통해 감지하여 새로고침시에도 현재 게시글 페이지를 유지할 것 같습니다 
+- 스타일링을 위한 라이브러리는 현재 디자인 가이드가 없는 상황이므로 0부터 만들어가기 보다는 만들어진 컴포넌트를 사용하는 것이 현 과제와 같은 프로토타입을 개발하는 데에 적합하다고 판단했습니다.
 
 
 ## 폴더구조
