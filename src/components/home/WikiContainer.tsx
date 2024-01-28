@@ -1,11 +1,13 @@
 import { useWikiPageStore } from '@/zustand/wiki';
 import { PageNavigator } from '../common/PageNavigator';
 import { WikiList } from './WikiList';
-import { useGetAllwikis } from '@/service/queries/wiki';
+import { useGetPaginatedWikis } from '@/service/queries/wiki';
 
 export const WikiContainer = () => {
   const { currentPage } = useWikiPageStore();
-  const { data: wikis, totalCount } = useGetAllwikis(currentPage);
+  console.log(currentPage, 'WikiContainer');
+
+  const { data: wikis, totalCount } = useGetPaginatedWikis(currentPage);
 
   return (
     <main className="flex flex-col justify-between flex-grow w-full gap-3">
