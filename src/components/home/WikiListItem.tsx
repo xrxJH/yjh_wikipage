@@ -22,9 +22,11 @@ export const WikiListItem = ({ wiki }: Props) => {
       className="flex-grow cursor-pointer "
     >
       <Card className="flex items-center w-full h-full p-3 text-sm gap-7 ">
-        <p className="flex-grow overflow-hidden text-ellipsis">{wiki.title}</p>
+        <p className="flex-grow overflow-hidden font-semibold text-ellipsis">
+          {wiki.title}
+        </p>
         <p className="">{formatTime(wiki.date)}</p>
-        <p className=" whitespace-nowrap">{wiki.author.name}</p>
+        <p className="font-semibold whitespace-nowrap">{wiki.author.name}</p>
       </Card>
     </li>
   );
