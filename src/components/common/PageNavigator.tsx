@@ -7,7 +7,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '../ui/pagination';
-import { useEffect } from 'react';
 
 type Props = {
   currentPageNumber: number;
