@@ -9,7 +9,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
-import { toast } from '@/components/ui/use-toast';
 import { useWikiForm } from '@/hooks/useWikiForm/useWikiForm';
 import { WikiSchemaType } from '@/hooks/useWikiForm/wikiFormSchema';
 import { useGetWikiDetail, useWikiEditor } from '@/service/queries/wiki';
@@ -38,28 +37,7 @@ export const NewAndEdit = () => {
       },
     };
 
-    wikiMutate(body, {
-      onSuccess: () => {
-        toast({
-          title: 'You submitted the following values:',
-          description: (
-            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-              <code className="text-white">{JSON.stringify(value, null, 2)}</code>
-            </pre>
-          ),
-        });
-      },
-      onError: (error) => {
-        toast({
-          title: 'You submitted, but error occured:',
-          description: (
-            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-              <code className="text-white">{JSON.stringify(error, null, 2)}</code>
-            </pre>
-          ),
-        });
-      },
-    });
+    wikiMutate(body);
   };
 
   return (

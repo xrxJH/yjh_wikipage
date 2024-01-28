@@ -40,19 +40,23 @@ export const PageNavigator = ({ currentPageNumber, totalCount }: Props) => {
     <Pagination>
       <PaginationContent>
         {currentPageNumber !== 1 && (
-          <PaginationItem onClick={handlePreviousPage}>
+          <PaginationItem onClick={handlePreviousPage} className="cursor-pointer">
             <PaginationPrevious />
           </PaginationItem>
         )}
 
         {Array.from({ length }, (_, i) => i + 1).map((page, i) => (
-          <PaginationItem key={page} onClick={() => handlePage(page)}>
+          <PaginationItem
+            key={page}
+            onClick={() => handlePage(page)}
+            className="cursor-pointer"
+          >
             <PaginationLink isActive={i + 1 === currentPageNumber}>{page}</PaginationLink>
           </PaginationItem>
         ))}
 
         {length !== currentPageNumber && (
-          <PaginationItem onClick={handleNextPage}>
+          <PaginationItem onClick={handleNextPage} className="cursor-pointer">
             <PaginationNext />
           </PaginationItem>
         )}

@@ -11,7 +11,10 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: PATH.HOME, element: <Home /> },
-      { path: PATH.WIKI_DETAIL + '/:id', element: <WikiDetail /> },
+      {
+        path: PATH.WIKI_DETAIL + '/:id',
+        element: <WikiDetail />,
+      },
       { path: PATH.NEW, element: <NewAndEdit /> },
       { path: PATH.EDIT + '/:id', element: <NewAndEdit /> },
     ],

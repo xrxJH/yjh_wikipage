@@ -53,7 +53,6 @@ export const useGetWikiDetail = (id: string) => {
   return useQuery<Wiki>({
     queryKey: [QUERY_KEY.wikiDetail, id],
     queryFn: () => getWikiDetail(id),
-    // suspense: true,
     enabled: !!id,
   });
 };
