@@ -92,7 +92,17 @@ https://github.com/xrxJH/yjh_wikipage/assets/157004345/688458eb-a2e5-4d48-bbb7-4
 
 
 ## 폴더구조
+components 
+- [common] 각 2곳 이상의 쓰임을 갖는 공통컴포넌트
+- [page 명] 각 페이지에서 쓰이는 컴포넌트
+- [ui] shadcnUI가 제공하는 컴포넌트
 
+hooks
+데이터를 페칭하지 않는 커스텀 훅
+
+service
+- [axios] Axios를 활용한 페쳐들
+- [queries] Tanstack-Query를 활용한 훅
 ```
 📦src
  ┣ 📂assets
