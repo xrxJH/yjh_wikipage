@@ -1,3 +1,4 @@
+import { useWikiPageStore } from '@/zustand/wiki';
 import {
   Pagination,
   PaginationContent,
@@ -6,32 +7,33 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '../ui/pagination';
+import { useEffect } from 'react';
 
 type Props = {
-  onPageChange: (page: number) => void;
   currentPageNumber: number;
   totalCount: number;
 };
 
-export const PageNavigator = ({ onPageChange, currentPageNumber, totalCount }: Props) => {
-  const WIKIS_PER_PAGE = 5;
+export const PageNavigator = ({ currentPageNumber, totalCount }: Props) => {
+  const { prevPage, nextPage, selectPage } = useWikiPageStore();
 
+  const WIKIS_PER_PAGE = 5;
   const length = Math.ceil(totalCount / WIKIS_PER_PAGE);
 
   const handlePreviousPage = () => {
     if (currentPageNumber > 1) {
-      onPageChange(currentPageNumber - 1);
+      prevPage();
     }
   };
 
   const handleNextPage = () => {
     if (currentPageNumber < length) {
-      onPageChange(currentPageNumber + 1);
+      nextPage();
     }
   };
 
   const handlePage = (page: number) => {
-    onPageChange(page);
+    selectPage(page);
   };
 
   return (
@@ -39,21 +41,19 @@ export const PageNavigator = ({ onPageChange, currentPageNumber, totalCount }: P
       <PaginationContent>
         {currentPageNumber !== 1 && (
           <PaginationItem onClick={handlePreviousPage}>
-            <PaginationPrevious href="#" />
+            <PaginationPrevious />
           </PaginationItem>
         )}
 
         {Array.from({ length }, (_, i) => i + 1).map((page, i) => (
           <PaginationItem key={page} onClick={() => handlePage(page)}>
-            <PaginationLink href="#" isActive={i + 1 === currentPageNumber}>
-              {page}
-            </PaginationLink>
+            <PaginationLink isActive={i + 1 === currentPageNumber}>{page}</PaginationLink>
           </PaginationItem>
         ))}
 
         {length !== currentPageNumber && (
           <PaginationItem onClick={handleNextPage}>
-            <PaginationNext href="#" />
+            <PaginationNext />
           </PaginationItem>
         )}
       </PaginationContent>

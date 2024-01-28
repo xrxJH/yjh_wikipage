@@ -22,11 +22,9 @@ export const NewAndEdit = () => {
   const { mutate: wikiMutate } = useWikiEditor(id);
 
   const isEditUrl = location.pathname.includes('/wiki/edit');
-  // const hasData = isEditUrl;
   const handleCancel = () => {
     navigate(-1);
   };
-  // const data = hasData ? { title: '기존 제목', body: '기존 내용' } : undefined;
   const form = useWikiForm(data);
 
   const onSubmit = (value: WikiSchemaType) => {
