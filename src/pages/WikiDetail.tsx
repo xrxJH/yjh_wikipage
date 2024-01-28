@@ -8,15 +8,66 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
-import { useGetWikiDetail } from '@/service/queries/wiki';
+import { useGetAllwikis, useGetWikiDetail } from '@/service/queries/wiki';
 import { useParams } from 'react-router-dom';
 import { formatTime } from '@/utils/formatTimeStamp';
+import { Link } from 'react-router-dom';
+import { BASE_URL, PATH } from '@/constants/path';
 
 export const WikiDetail = () => {
   const isUpdated = true;
   const { id } = useParams() as { id: string };
   const { data } = useGetWikiDetail(id);
-  console.log(data);
+  const { data: allWikis } = useGetAllwikis(); // 얘를 로더로?
+  console.log(data?.description);
+  console.log(allWikis);
+
+  const replacedContent = () => {
+    if (!data?.description || !allWikis) return <p>{data?.description}</p>;
+
+    const output = [];
+    let processedIndex = 0; // 현재까지 처리된 description 문자열의 인덱스
+
+    allWikis.forEach((wiki: WikiTitles) => {
+      const regex = new RegExp(`(${wiki.title})`, 'g');
+      let match;
+
+      while ((match = regex.exec(data.description)) !== null) {
+        const matchStart = match.index;
+        const matchEnd = regex.lastIndex;
+
+        // 이전 match와 현재 match 사이의 텍스트를 span으로 추가함
+        if (matchStart > processedIndex) {
+          output.push(
+            <span key={`text-${processedIndex}`}>
+              {data.description.slice(processedIndex, matchStart)}
+            </span>
+          );
+        }
+
+        // 현재 match를 Link 컴포넌트로 추가
+        output.push(
+          <Link
+            key={`link-${matchStart}`}
+            to={`${BASE_URL}${PATH.WIKI_DETAIL}/${wiki.id}`}
+            className="inline-block text-blue-500 underline "
+          >
+            🔗{match[0]}
+          </Link>
+        );
+
+        // 처리된 인덱스 업데이트함
+        processedIndex = matchEnd;
+      }
+    });
+
+    // 마지막 match 이후의 남은 텍스트를 처리
+    if (processedIndex < data.description.length) {
+      output.push(<span key={`text-end`}>{data.description.slice(processedIndex)}</span>);
+    }
+
+    return output;
+  };
 
   return (
     <div className="flex flex-col justify-between w-full h-full gap-3">
@@ -52,8 +103,8 @@ export const WikiDetail = () => {
       </Card>
 
       <div className="flex flex-grow w-full h-4/6 max-h-900">
-        <Card className="flex flex-col w-full p-5 overflow-auto">
-          <p className="break-words break-all">{data?.description}</p>
+        <Card className="flex flex-col w-full p-5 overflow-auto ">
+          <p className="break-words break-all">{replacedContent()}</p>
         </Card>
       </div>
 
