@@ -44,7 +44,7 @@ https://github.com/xrxJH/yjh_wikipage/assets/157004345/688458eb-a2e5-4d48-bbb7-4
 #### 페이지네이션
 
 - 5개씩 최신데이터 순으로 보여집니다. grid를 활용하여 5개가 되지 않아도 레이아웃이 무너지지 않습니다.
-- tanstack-query의 paginated 패턴과 json server의 paginate param을 이용하여 5개씩 페칭합니다 
+- tanstack-query의 paginated 패턴과 json server의 paginate param을 이용하여 5개씩, 최신데이터 순으로 정렬하여 페칭합니다 
 ![image](https://github.com/xrxJH/yjh_wikipage/assets/157004345/5889684a-51c1-4b37-b90e-4eea981e72e0)
 
 
@@ -55,10 +55,10 @@ https://github.com/xrxJH/yjh_wikipage/assets/157004345/688458eb-a2e5-4d48-bbb7-4
 #### 유효성 검사 로직 분리
 
 - react-hook-form과 zod를 이용하여 유효성검사 로직을 분리했습니다.    
-[form훅](https://github.com/xrxJH/yjh_wikipage/blob/main/src/hooks/useWikiForm/useWikiForm.ts)
-[유효성 검증](https://github.com/xrxJH/yjh_wikipage/blob/main/src/hooks/useWikiForm/wikiFormSchema.ts)
+  - [form훅](https://github.com/xrxJH/yjh_wikipage/blob/main/src/hooks/useWikiForm/useWikiForm.ts)       
+  - [유효성 검증](https://github.com/xrxJH/yjh_wikipage/blob/main/src/hooks/useWikiForm/wikiFormSchema.ts)
 
-#### 본문에 다른 게시글 제목 링크 걸기
+#### [본문에 다른 게시글 제목 링크 걸기](https://github.com/xrxJH/yjh_wikipage/blob/main/src/components/wikiDetail/DescriptionContent.tsx)
 
 - 모든 게시글의 id와 title을 select하여 반환하는 api를 통해 원하는 데이터를 가져옵니다.
 - 정규식을 이용해 본문데이터에 게시글 title이 포함되어있다면 Link 태그로 감싸줍니다. 
