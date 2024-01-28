@@ -43,6 +43,9 @@ https://github.com/xrxJH/yjh_wikipage/assets/157004345/688458eb-a2e5-4d48-bbb7-4
 #### 페이지네이션
 
 - 5개씩 최신데이터 순으로 보여집니다. grid를 활용하여 5개가 되지 않아도 레이아웃이 무너지지 않습니다.
+- tanstack-query의 paginated 패턴과 json server의 paginate param을 이용하여 5개씩 페칭합니다 
+![image](https://github.com/xrxJH/yjh_wikipage/assets/157004345/5889684a-51c1-4b37-b90e-4eea981e72e0)
+
 
 #### CRUD
 
