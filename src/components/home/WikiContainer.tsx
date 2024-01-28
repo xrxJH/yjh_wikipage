@@ -5,7 +5,6 @@ import { useGetPaginatedWikis } from '@/service/queries/wiki';
 
 export const WikiContainer = () => {
   const { currentPage } = useWikiPageStore();
-  console.log(currentPage, 'WikiContainer');
 
   const { data: wikis, totalCount } = useGetPaginatedWikis(currentPage);
 
