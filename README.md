@@ -14,7 +14,6 @@ npm run dev
 - [필수요구사항](#필수요구사항)
 
 [트러블슈팅](#트러블슈팅)  
-[회고](#회고)  
 [폴더구조](#폴더구조)
 
 ## 데모
@@ -30,7 +29,7 @@ https://github.com/xrxJH/yjh_wikipage/assets/157004345/688458eb-a2e5-4d48-bbb7-4
 
 #### 라우트
 
-- 메인, 상세, 글쓰기&수정 페이지(editor)로 나누었습니다
+- 메인('/'), 상세('/wiki/detail/:id'), 글쓰기('/wiki/new')&수정 페이지('/wiki/edit')로 나누었습니다
   - 레이아웃의 Logo 클릭시 메인페이지로 이동
   - 메인의 wiki항목을 클릭하면 해당하는 wiki 상세페이지로 이동
   - 추가버튼, 수정버튼을 누르면 글쓰기&수정 페이지로 이동
@@ -65,7 +64,7 @@ https://github.com/xrxJH/yjh_wikipage/assets/157004345/688458eb-a2e5-4d48-bbb7-4
 
 #### 데이터 총 개수 구하기
 
-배경: 페이지 네비게이터 숫자렌더링에 필요한 데이터의 총개수를 구하기 위해 x-total-count를 이용하기로 했으나 json-server가 기본으로 제공하는 header의 x-total-count 값을 찾지 못하는 문제 발생
+배경: 페이지 네비게이터 숫자렌더링에 필요한 데이터의 총개수를 구하기 위해 x-total-count를 이용하기로 했으나 json-server가 기본으로 제공하는 header의 x-total-count 값을 찾지 못하는 문제 발생    
 해결: json-server의 버전을 alpha버전이 아닌 것으로 다운그레이드하여 해결
 
 ## 기술스택
@@ -93,7 +92,7 @@ https://github.com/xrxJH/yjh_wikipage/assets/157004345/688458eb-a2e5-4d48-bbb7-4
  ┃ ┃ ┣ 📜WikiContainer.tsx
  ┃ ┃ ┣ 📜WikiList.tsx
  ┃ ┃ ┗ 📜WikiListItem.tsx
- ┃ ┣ 📂ui
+ ┃ ┣ 📂ui  // shadcn 컴포넌트
  ┃ ┃ ┣ 📜avatar.tsx
  ┃ ┃ ┣ 📜button.tsx
  ┃ ┃ ┣ 📜card.tsx
